@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Xoleric Nexus v4 · Quantum Evolution</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,500;14..32,700;14..32,900&family=JetBrains+Mono:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Theme Variables - 4完全不同のテーマ */
+        :root {
+            /* Theme 1: Cyberpunk 2077 (Default) */
+            --theme-primary: #00f0ff;
+            --theme-secondary: #ff00aa;
+            --theme-tertiary: #b200ff;
+            --theme-bg: #0a0a14;
+            --theme-surface: rgba(20, 30, 50, 0.7);
+            --theme-card: rgba(255, 255, 255, 0.03);
+            --theme-text: #f0f4ff;
+            --theme-text-dim: #8a94b0;
+            --theme-glow: 0 0 30px rgba(0, 240, 255, 0.3);
+            --theme-border: rgba(0, 240, 255, 0.2);
+            --theme-gradient: linear-gradient(135deg, #00f0ff, #ff00aa, #b200ff);
+            --theme-font: 'Inter', sans-serif;
+            --theme-pattern: repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 10px);
+        }
+
+        [data-theme="2"] {
+            /* Theme 2: Material You · Google Sand */
+            --theme-primary: #0066ff;
+            --theme-secondary: #10b981;
+            --theme-tertiary: #f59e0b;
+            --theme-bg: #f0f4fa;
+            --theme-surface: rgba(255, 255, 255, 0.7);
+            --theme-card: #ffffff;
+            --theme-text: #1e293b;
+            --theme-text-dim: #64748b;
+            --theme-glow: 0 20px 40px -15px #0066ff;
+            --theme-border: rgba(0, 102, 255, 0.2);
+            --theme-gradient: linear-gradient(135deg, #0066ff, #10b981, #f59e0b);
+            --theme-font: 'Inter', sans-serif;
+            --theme-pattern: radial-gradient(circle at 20% 30%, rgba(0,102,255,0.05) 0%, transparent 30%);
+        }
+
+        [data-theme="3"] {
+            /* Theme 3: Midnight Galaxy */
+            --theme-primary: #c084fc;
+            --theme-secondary: #38bdf8;
+            --theme-tertiary: #f472b6;
+            --theme-bg: #0f0719;
+            --theme-surface: rgba(45, 30, 60, 0.5);
+            --theme-card: rgba(255, 255, 255, 0.02);
+            --theme-text: #f5f0ff;
+            --theme-text-dim: #b8a9d4;
+            --theme-glow: 0 0 50px #c084fc80;
+            --theme-border: rgba(192, 132, 252, 0.3);
+            --theme-gradient: linear-gradient(135deg, #c084fc, #38bdf8, #f472b6);
+            --theme-font: 'Inter', sans-serif;
+            --theme-pattern: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+        }
+
+        [data-theme="4"] {
+            /* Theme 4: Neon Tokyo */
+            --theme-primary: #ff3366;
+            --theme-secondary: #33ffcc;
+            --theme-tertiary: #ffcc00;
+            --theme-bg: #1a0b1a;
+            --theme-surface: rgba(255, 50, 100, 0.1);
+            --theme-card: rgba(255, 200, 220, 0.02);
+            --theme-text: #fff5f5;
+            --theme-text-dim: #ffb3c6;
+            --theme-glow: 0 0 40px #ff3366;
+            --theme-border: rgba(255, 51, 102, 0.4);
+            --theme-gradient: linear-gradient(135deg, #ff3366, #33ffcc, #ffcc00);
+            --theme-font: 'Inter', sans-serif;
+            --theme-pattern: repeating-linear-gradient(0deg, rgba(255,51,102,0.1) 0px, rgba(255,51,102,0.1) 2px, transparent 2px, transparent 8px);
+        }
+
+        body {
+            font-family: var(--theme-font);
+            background: var(--theme-bg);
+            color: var(--theme-text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-image: var(--theme-pattern);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            padding: 20px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .nexus-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px 25px;
+            background: var(--theme-surface);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            border: 1px solid var(--theme-border);
+            box-shadow: var(--theme-glow);
+            position: relative;
+            overflow: hidden;
+            animation: slideIn 0.6s ease;
+        }
+
+        .nexus-header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: var(--theme-gradient);
+            opacity: 0.05;
+            animation: rotate 20s linear infinite;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 1;
+        }
+
+        .quantum-logo {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 15px var(--theme-primary));
+            animation: float 3s ease infinite;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: var(--theme-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-text p {
+            color: var(--theme-text-dim);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .theme-switcher {
+            display: flex;
+            gap: 8px;
+            z-index: 1;
+        }
+
+        .theme-dot {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--theme-card);
+            border: 2px solid var(--theme-border);
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-dot.active {
+            transform: scale(1.2);
+            border-color: var(--theme-primary);
+            box-shadow: 0 0 25px var(--theme-primary);
+        }
+
+        .theme-dot:nth-child(1) { background: linear-gradient(135deg, #00f0ff, #ff00aa); }
+        .theme-dot:nth-child(2) { background: linear-gradient(135deg, #0066ff, #10b981); }
+        .theme-dot:nth-child(3) { background: linear-gradient(135deg, #c084fc, #38bdf8); }
+        .theme-dot:nth-child(4) { background: linear-gradient(135deg, #ff3366, #33ffcc); }
+
+        /* Date Picker - Futuristic */
+        .time-capsule {
+            background: var(--theme-surface);
+            backdrop-filter: blur(20px);
+            border-radius: 48px;
+            padding: 30px;
+            border: 1px solid var(--theme-border);
+            box-shadow: var(--theme-glow);
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .capsule-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            color: var(--theme-text-dim);
+            letter-spacing: 2px;
+        }
+
+        .capsule-title i {
+            color: var(--theme-primary);
+            font-size: 1.2rem;
+        }
+
+        .wheel-system {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            perspective: 1000px;
+        }
+
+        .wheel-unit {
+            flex: 1;
+            max-width: 150px;
+            text-align: center;
+        }
+
+        .wheel-label {
+            color: var(--theme-text-dim);
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .wheel-container {
+            height: 220px;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scrollbar-width: none;
+            border-radius: 40px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px 0;
+            border: 1px solid var(--theme-border);
+            transform: rotateX(2deg);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        .wheel-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .wheel-item {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            scroll-snap-align: center;
+            color: var(--theme-text-dim);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .wheel-item.active {
+            color: var(--theme-primary);
+            font-size: 2.5rem;
+            text-shadow: 0 0 20px var(--theme-primary);
+            transform: scale(1.1);
+        }
+
+        .initiate-btn {
+            width: 100%;
+            padding: 22px;
+            border: none;
+            border-radius: 40px;
+            background: var(--theme-gradient);
+            color: white;
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s;
+            box-shadow: var(--theme-glow);
+            margin-top: 20px;
+        }
+
+        .initiate-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .initiate-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Dashboard - Grid System */
+        .quantum-dashboard {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        /* Quantum Card */
+        .quantum-card {
+            background: var(--theme-surface);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 25px;
+            border: 1px solid var(--theme-border);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: cardAppear 0.5s ease backwards;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quantum-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--theme-primary);
+            box-shadow: var(--theme-glow);
+        }
+
+        .quantum-card.expanded {
+            grid-column: span 4;
+            min-height: 400px;
+            z-index: 10;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .card-icon {
+            font-size: 1.8rem;
+            color: var(--theme-primary);
+            filter: drop-shadow(0 0 10px var(--theme-primary));
+        }
+
+        .card-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--theme-text-dim);
+        }
+
+        .card-value {
+            font-size: 2.8rem;
+            font-weight: 900;
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--theme-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .card-unit {
+            color: var(--theme-text-dim);
+            font-size: 0.9rem;
+            margin-left: 5px;
+        }
+
+        .card-progress {
+            margin-top: 20px;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--theme-gradient);
+            width: 0%;
+            transition: width 0.5s;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        /* Expanded Card Content */
+        .expanded-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards 0.2s;
+        }
+
+        .metric-group {
+            background: rgba(0,0,0,0.2);
+            border-radius: 24px;
+            padding: 20px;
+            border: 1px solid var(--theme-border);
+        }
+
+        .metric-title {
+            font-size: 0.8rem;
+            color: var(--theme-text-dim);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .metric-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .metric-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .metric-name {
+            color: var(--theme-text-dim);
+            font-size: 0.9rem;
+        }
+
+        .metric-value {
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--theme-primary);
+        }
+
+        /* Quantum Timer */
+        .quantum-timer {
+            grid-column: span 4;
+            background: linear-gradient(135deg, rgba(0,240,255,0.1), rgba(255,0,170,0.1));
+        }
+
+        .timer-display {
+            font-size: 5rem;
+            font-weight: 900;
+            font-family: 'JetBrains Mono', monospace;
+            text-align: center;
+            letter-spacing: 10px;
+            text-shadow: 0 0 40px var(--theme-primary);
+            animation: pulse 2s infinite;
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { text-shadow: 0 0 40px var(--theme-primary); }
+            50% { text-shadow: 0 0 80px var(--theme-secondary); }
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .quantum-dashboard {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .quantum-timer {
+                grid-column: span 2;
+            }
+            
+            .timer-display {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nexus-header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .wheel-system {
+                flex-wrap: wrap;
+            }
+            
+            .wheel-unit {
+                min-width: 100px;
+            }
+            
+            .quantum-dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .quantum-timer {
+                grid-column: span 1;
+            }
+            
+            .timer-display {
+                font-size: 2.5rem;
+                letter-spacing: 5px;
+            }
+            
+            .quantum-card.expanded {
+                grid-column: span 1;
+            }
+            
+            .card-value {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .wheel-item {
+                font-size: 1.4rem;
+            }
+            
+            .wheel-item.active {
+                font-size: 2rem;
+            }
+            
+            .timer-display {
+                font-size: 1.8rem;
+                letter-spacing: 3px;
+            }
+        }
+
+        /* Loading State */
+        .loading {
+            position: relative;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: loading 1.5s infinite;
+        }
+
+        /* Utility */
+        .hidden {
+            display: none;
+        }
+
+        .text-gradient {
+            background: var(--theme-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body data-theme="1">
+    <div class="container">
+        <!-- Header -->
+        <header class="nexus-header">
+            <div class="logo-area">
+                <div class="quantum-logo">⚡</div>
+                <div class="logo-text">
+                    <h1>XOLERIC NEXUS</h1>
+                    <p>QUANTUM TEMPORAL ANALYZER</p>
+                </div>
+            </div>
+            <div class="theme-switcher">
+                <div class="theme-dot active" onclick="switchTheme(1)"></div>
+                <div class="theme-dot" onclick="switchTheme(2)"></div>
+                <div class="theme-dot" onclick="switchTheme(3)"></div>
+                <div class="theme-dot" onclick="switchTheme(4)"></div>
+            </div>
+        </header>
+
+        <!-- Time Capsule (Date Picker) -->
+        <div class="time-capsule" id="timeCapsule">
+            <div class="capsule-title">
+                <i class="fas fa-clock"></i>
+                <span>SELECT TEMPORAL ORIGIN</span>
+            </div>
+            
+            <div class="wheel-system">
+                <div class="wheel-unit">
+                    <div class="wheel-label">DAY</div>
+                    <div class="wheel-container" id="dayWheel"></div>
+                </div>
+                <div class="wheel-unit">
+                    <div class="wheel-label">MONTH</div>
+                    <div class="wheel-container" id="monthWheel"></div>
+                </div>
+                <div class="wheel-unit">
+                    <div class="wheel-label">YEAR</div>
+                    <div class="wheel-container" id="yearWheel"></div>
+                </div>
+            </div>
+            
+            <button class="initiate-btn" id="startBtn">
+                <i class="fas fa-atom"></i> INITIATE SEQUENCE
+            </button>
+        </div>
+
+        <!-- Quantum Dashboard -->
+        <div class="quantum-dashboard hidden" id="dashboard">
+            <!-- Age Card -->
+            <div class="quantum-card" onclick="expandCard(this)" data-card="age">
+                <div class="card-header">
+                    <span class="card-icon">🌱</span>
+                    <span class="card-label">BIOLOGICAL AGE</span>
+                </div>
+                <div class="card-value" id="ageValue">0</div>
+                <div class="card-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="yearProgress" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="expanded-content hidden">
+                    <div class="metric-group">
+                        <div class="metric-title">AGE METRICS</div>
+                        <div class="metric-list">
+                            <div class="metric-item">
+                                <span class="metric-name">Years in months</span>
+                                <span class="metric-value" id="ageInMonths">0</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-name">Years in weeks</span>
+                                <span class="metric-value" id="ageInWeeks">0</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-name">Years in hours</span>
+                                <span class="metric-value" id="ageInHours">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Time Units Card -->
+            <div class="quantum-card" onclick="expandCard(this)" data-card="time">
+                <div class="card-header">
+                    <span class="card-icon">⏳</span>
+                    <span class="card-label">TIME UNITS</span>
+                </div>
+                <div class="card-value" id="daysValue">0</div>
+                <div class="card-unit" id="weeksValue">0 weeks</div>
+                <div class="expanded-content hidden">
+                    <div class="metric-group">
+                        <div class="metric-title">DETAILED BREAKDOWN</div>
+                        <div class="metric-list">
+                            <div class="metric-item">
+                                <span class="metric-name">Total months</span>
+                                <span class="metric-value" id="totalMonths">0</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-name">Total weeks</span>
+                                <span class="metric-value" id="totalWeeks">0</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-name">Total hours</span>
+                                <span class="metric-value" id="totalHours">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Heart Card -->
+            <div class="quantum-card" onclick="expandCard(this)" data-card="heart">
+                <div class="card-header">
+                    <span class="card-icon">❤️</span>
+                    <span class="card-label">HEART CYCLES</span>
+                </div>
+                <div class="card-value" id="heartValue">0</div>
+                <div class="card-unit">beats</div>
+                <div class="expanded-content hidden">
+                    <div class="metric-group">
+                        <div class="metric-title">CARDIAC STATISTICS</div>
+                        <div class="metric-list">
+                            <div class="metric-item">
+                                <span class="metric-name">Daily average</span>
+                                <span class="metric-value" id="heartDaily">108,000</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-name">Yearly total</span>
+                                <span class="metric-value" id="heartYearly">39M</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-name">Liters pumped</span>
+                                <span class="metric-value" id="heartLiters">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Breath Card -->
+            <div class="quantum-card" onclick="expandCard(this)" data-card="breath">
+                <div class="card-header">
+                    <span class="card-icon">🌊</span>
+                    <span class="card-label">RESPIRATION</span>
+                </div>
+                <div class="card-value" id="breathValue">0</div>
+                <div class="card-unit">breaths</div>
+                <div class="expanded-content hidden">
+                    <div class="metric-group">
+                        <div class="metric-title">RESPIRATORY ANALYSIS</div>
+                        <div class="metric-list">
+                            <div class="metric-item">
+                                <span class="metric-name">Air volume (m³)</span>
+                                <span class="metric-value" id="airVolume">0</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-name">Daily breaths</span>
+                                <span class="metric-value">23,040</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-name">Oxygen used (kg)</span>
+                                <span class="metric-value" id="oxygenUsed">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Next Birthday -->
+            <div class="quantum-card" onclick="expandCard(this)" data-card="birthday">
+                <div class="card-header">
+                    <span class="card-icon">🎂</span>
+                    <span class="card-label">NEXT ORBIT</span>
+                </div>
+                <div class="card-value" id="birthdayCountdown">0</div>
+                <div class="card-unit">days left</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="birthdayProgress" style="width: 0%"></div>
+                </div>
+                <div class="expanded-content hidden">
+                    <div class="metric-group">
+                        <div class="metric-title">BIRTHDAY METRICS</div>
+                        <div class="metric-list">
+                            <div class="metric-item">
+                                <span class="metric-name">Hours until</span>
+                                <span class="metric-value" id="hoursUntil">0</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-name">Minutes until</span>
+                                <span class="metric-value" id="minutesUntil">0</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-name">Seconds until</span>
+                                <span class="metric-value" id="secondsUntil">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sleep Card -->
+            <div class="quantum-card" onclick="expandCard(this)" data-card="sleep">
+                <div class="card-header">
+                    <span class="card-icon">😴</span>
+                    <span class="card-label">SLEEP CYCLES</span>
+                </div>
+                <div class="card-value" id="sleepValue">0</div>
+                <div class="card-unit">hours</div>
+                <div class="expanded-content hidden">
+                    <div class="metric-group">
+                        <div class="metric-title">SLEEP PATTERNS</div>
+                        <div class="metric-list">
+                            <div class="metric-item">
+                                <span class="metric-name">REM cycles</span>
+                                <span class="metric-value" id="remCycles">0</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-name">Dreams (est.)</span>
+                                <span class="metric-value" id="dreams">0</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-name">Years slept</span>
+                                <span class="metric-value" id="yearsSlept">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Food Card -->
+            <div class="quantum-card" onclick="expandCard(this)" data-card="food">
+                <div class="card-header">
+                    <span class="card-icon">🍽️</span>
+                    <span class="card-label">MEALS</span>
+                </div>
+                <div class="card-value" id="foodValue">0</div>
+                <div class="card-unit">meals</div>
+                <div class="expanded-content hidden">
+                    <div class="metric-group">
+                        <div class="metric-title">NUTRITION FACTS</div>
+                        <div class="metric-list">
+                            <div class="metric-item">
+                                <span class="metric-name">Calories burned</span>
+                                <span class="metric-value" id="calories">0</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-name">Food weight (kg)</span>
+                                <span class="metric-value" id="foodWeight">0</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-name">Water (liters)</span>
+                                <span class="metric-value" id="waterIntake">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quantum Timer -->
+            <div class="quantum-card quantum-timer" id="quantumTimer">
+                <div class="card-header">
+                    <span class="card-icon">⚛️</span>
+                    <span class="card-label">QUANTUM RESOLUTION</span>
+                </div>
+                <div class="timer-display">
+                    <span id="seconds">00</span>:<span id="milliseconds">000</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme Switcher - 4 completely different themes
+        function switchTheme(themeNumber) {
+            document.body.setAttribute('data-theme', themeNumber.toString());
+            
+            // Update active dot
+            document.querySelectorAll('.theme-dot').forEach((dot, index) => {
+                if (index + 1 === themeNumber) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+            
+            // Save preference
+            localStorage.setItem('xoleric-theme', themeNumber);
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('xoleric-theme');
+        if (savedTheme) {
+            switchTheme(parseInt(savedTheme));
+        }
+
+        // Card expansion system
+        function expandCard(card) {
+            // Don't expand if it's the quantum timer
+            if (card.id === 'quantumTimer') return;
+            
+            // Remove expanded class from all cards
+            document.querySelectorAll('.quantum-card').forEach(c => {
+                if (c !== card && !c.classList.contains('quantum-timer')) {
+                    c.classList.remove('expanded');
+                    const expandedContent = c.querySelector('.expanded-content');
+                    if (expandedContent) expandedContent.classList.add('hidden');
+                }
+            });
+            
+            // Toggle current card
+            card.classList.toggle('expanded');
+            const expandedContent = card.querySelector('.expanded-content');
+            if (expandedContent) {
+                expandedContent.classList.toggle('hidden');
+            }
+        }
+
+        // Wheel initialization
+        class QuantumAnalyzer {
+            constructor() {
+                this.birthDate = null;
+                this.animationFrame = null;
+                
+                this.elements = {
+                    dayWheel: document.getElementById('dayWheel'),
+                    monthWheel: document.getElementById('monthWheel'),
+                    yearWheel: document.getElementById('yearWheel'),
+                    startBtn: document.getElementById('startBtn'),
+                    timeCapsule: document.getElementById('timeCapsule'),
+                    dashboard: document.getElementById('dashboard'),
+                    
+                    // Display elements
+                    ageValue: document.getElementById('ageValue'),
+                    daysValue: document.getElementById('daysValue'),
+                    weeksValue: document.getElementById('weeksValue'),
+                    heartValue: document.getElementById('heartValue'),
+                    breathValue: document.getElementById('breathValue'),
+                    sleepValue: document.getElementById('sleepValue'),
+                    foodValue: document.getElementById('foodValue'),
+                    birthdayCountdown: document.getElementById('birthdayCountdown'),
+                    seconds: document.getElementById('seconds'),
+                    milliseconds: document.getElementById('milliseconds'),
+                    yearProgress: document.getElementById('yearProgress'),
+                    birthdayProgress: document.getElementById('birthdayProgress'),
+                    
+                    // Expanded elements
+                    ageInMonths: document.getElementById('ageInMonths'),
+                    ageInWeeks: document.getElementById('ageInWeeks'),
+                    ageInHours: document.getElementById('ageInHours'),
+                    totalMonths: document.getElementById('totalMonths'),
+                    totalWeeks: document.getElementById('totalWeeks'),
+                    totalHours: document.getElementById('totalHours'),
+                    heartLiters: document.getElementById('heartLiters'),
+                    airVolume: document.getElementById('airVolume'),
+                    oxygenUsed: document.getElementById('oxygenUsed'),
+                    hoursUntil: document.getElementById('hoursUntil'),
+                    minutesUntil: document.getElementById('minutesUntil'),
+                    secondsUntil: document.getElementById('secondsUntil'),
+                    remCycles: document.getElementById('remCycles'),
+                    dreams: document.getElementById('dreams'),
+                    yearsSlept: document.getElementById('yearsSlept'),
+                    calories: document.getElementById('calories'),
+                    foodWeight: document.getElementById('foodWeight'),
+                    waterIntake: document.getElementById('waterIntake')
+                };
+                
+                this.initWheels();
+                this.setDefaultDate();
+            }
+            
+            initWheels() {
+                this.buildWheel(this.elements.dayWheel, 1, 31);
+                this.buildWheel(this.elements.monthWheel, 1, 12);
+                this.buildWheel(this.elements.yearWheel, 1950, new Date().getFullYear());
+                
+                this.elements.startBtn.addEventListener('click', () => this.startAnalysis());
+            }
+            
+            buildWheel(wheel, start, end) {
+                let html = '<div class="wheel-item"></div><div class="wheel-item"></div>';
+                for (let i = start; i <= end; i++) {
+                    html += `<div class="wheel-item" data-value="${i}">${i.toString().padStart(2, '0')}</div>`;
+                }
+                html += '<div class="wheel-item"></div><div class="wheel-item"></div>';
+                wheel.innerHTML = html;
+                
+                wheel.addEventListener('scroll', () => this.updateActiveItem(wheel));
+            }
+            
+            updateActiveItem(wheel) {
+                const items = wheel.querySelectorAll('.wheel-item[data-value]');
+                const containerCenter = wheel.scrollTop + wheel.clientHeight / 2;
+                
+                items.forEach(item => {
+                    const itemCenter = item.offsetTop + item.clientHeight / 2;
+                    if (Math.abs(itemCenter - containerCenter) < 30) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+            }
+            
+            setDefaultDate() {
+                const today = new Date();
+                this.setWheelValue(this.elements.dayWheel, today.getDate());
+                this.setWheelValue(this.elements.monthWheel, today.getMonth() + 1);
+                this.setWheelValue(this.elements.yearWheel, today.getFullYear() - 25); // Default to 25 years ago
+            }
+            
+            setWheelValue(wheel, value) {
+                const item = Array.from(wheel.querySelectorAll('[data-value]')).find(
+                    el => parseInt(el.dataset.value) === value
+                );
+                if (item) {
+                    wheel.scrollTop = item.offsetTop - wheel.clientHeight / 2 + item.clientHeight / 2;
+                }
+            }
+            
+            getWheelValue(wheel) {
+                const active = wheel.querySelector('.wheel-item.active');
+                return active ? parseInt(active.dataset.value) : null;
+            }
+            
+            startAnalysis() {
+                const day = this.getWheelValue(this.elements.dayWheel);
+                const month = this.getWheelValue(this.elements.monthWheel);
+                const year = this.getWheelValue(this.elements.yearWheel);
+                
+                if (!day || !month || !year) {
+                    alert('⚠️ Please select a valid date');
+                    return;
+                }
+                
+                this.birthDate = new Date(year, month - 1, day);
+                
+                if (this.birthDate > new Date()) {
+                    alert('⚠️ Birth date cannot be in the future');
+                    return;
+                }
+                
+                // Switch to dashboard
+                this.elements.timeCapsule.classList.add('hidden');
+                this.elements.dashboard.classList.remove('hidden');
+                
+                // Start quantum calculations
+                if (this.animationFrame) {
+                    cancelAnimationFrame(this.animationFrame);
+                }
+                this.calculate();
+            }
+            
+            calculate() {
+                const now = new Date();
+                const diff = now - this.birthDate;
+                
+                // Basic calculations
+                const years = diff / (365.25 * 24 * 60 * 60 * 1000);
+                const days = diff / (24 * 60 * 60 * 1000);
+                const minutes = diff / (60 * 1000);
+                const hours = diff / (60 * 60 * 1000);
+                
+                // Update main values
+                this.elements.ageValue.textContent = Math.floor(years);
+                this.elements.daysValue.textContent = Math.floor(days).toLocaleString();
+                this.elements.weeksValue.textContent = Math.floor(days / 7).toLocaleString() + ' weeks';
+                this.elements.heartValue.textContent = Math.floor(minutes * 75).toLocaleString();
+                this.elements.breathValue.textContent = Math.floor(minutes * 16).toLocaleString();
+                this.elements.sleepValue.textContent = Math.floor(hours * 8).toLocaleString();
+                this.elements.foodValue.textContent = Math.floor(days * 3).toLocaleString();
+                
+                // Quantum timer
+                this.elements.seconds.textContent = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
+                this.elements.milliseconds.textContent = (diff % 1000).toString().padStart(3, '0');
+                
+                // Birthday calculations
+                const nextBirthday = new Date(now.getFullYear(), this.birthDate.getMonth(), this.birthDate.getDate());
+                if (now > nextBirthday) {
+                    nextBirthday.setFullYear(now.getFullYear() + 1);
+                }
+                
+                const prevBirthday = new Date(nextBirthday.getFullYear() - 1, this.birthDate.getMonth(), this.birthDate.getDate());
+                const birthdayDiff = nextBirthday - now;
+                const daysUntil = Math.ceil(birthdayDiff / (24 * 60 * 60 * 1000));
+                this.elements.birthdayCountdown.textContent = daysUntil;
+                
+                const birthdayProgress = ((now - prevBirthday) / (nextBirthday - prevBirthday)) * 100;
+                this.elements.birthdayProgress.style.width = Math.min(birthdayProgress, 100) + '%';
+                
+                // Year progress
+                const yearStart = new Date(now.getFullYear(), 0, 1);
+                const yearEnd = new Date(now.getFullYear() + 1, 0, 1);
+                const yearProgress = ((now - yearStart) / (yearEnd - yearStart)) * 100;
+                this.elements.yearProgress.style.width = Math.min(yearProgress, 100) + '%';
+                
+                // Update expanded metrics
+                if (this.elements.ageInMonths) {
+                    this.elements.ageInMonths.textContent = Math.floor(years * 12);
+                    this.elements.ageInWeeks.textContent = Math.floor(years * 52.18);
+                    this.elements.ageInHours.textContent = Math.floor(hours).toLocaleString();
+                    
+                    this.elements.totalMonths.textContent = Math.floor(years * 12);
+                    this.elements.totalWeeks.textContent = Math.floor(days / 7);
+                    this.elements.totalHours.textContent = Math.floor(hours).toLocaleString();
+                    
+                    this.elements.heartLiters.textContent = Math.floor(minutes * 75 * 0.07).toLocaleString();
+                    this.elements.airVolume.textContent = Math.floor(minutes * 16 * 0.5).toLocaleString();
+                    this.elements.oxygenUsed.textContent = Math.floor(minutes * 16 * 0.001).toLocaleString();
+                    
+                    this.elements.hoursUntil.textContent = Math.floor(birthdayDiff / (60 * 60 * 1000));
+                    this.elements.minutesUntil.textContent = Math.floor(birthdayDiff / (60 * 1000));
+                    this.elements.secondsUntil.textContent = Math.floor(birthdayDiff / 1000);
+                    
+                    this.elements.remCycles.textContent = Math.floor(hours * 8 * 0.25);
+                    this.elements.dreams.textContent = Math.floor(days * 5);
+                    this.elements.yearsSlept.textContent = (years * 0.33).toFixed(1);
+                    
+                    this.elements.calories.textContent = Math.floor(minutes * 1.5).toLocaleString();
+                    this.elements.foodWeight.textContent = Math.floor(days * 1.5).toLocaleString();
+                    this.elements.waterIntake.textContent = Math.floor(days * 2.5).toLocaleString();
+                }
+                
+                this.animationFrame = requestAnimationFrame(() => this.calculate());
+            }
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', () => {
+            window.analyzer = new QuantumAnalyzer();
+        });
+    </script>
+</body>
+</html>
